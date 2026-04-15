@@ -164,9 +164,14 @@ export const initRenderer = ({
   }
 
   customRenderer.image = ({ href, text, tokens }) => {
-    const altText = tokens
-      ? customRenderer.parser.parseInline(tokens, customRenderer.parser.textRenderer)
-      : text;
+    const altText = (
+      tokens
+        ? customRenderer.parser.parseInline(
+            tokens,
+            customRenderer.parser.textRenderer
+          )
+        : text
+    ) ?? "";
 
     return `<img src="${href}" alt="${altText}"${
       parseCssInJsToInlineCss(finalStyles.image) !== ""
