@@ -202,8 +202,9 @@ export const initRenderer = ({
 
   customRenderer.link = ({ href, tokens }) => {
     const text = customRenderer.parser.parseInline(tokens);
+    const hrefAttr = escapeHtmlAttr(href ?? "");
 
-    return `<a href="${href}" target="_blank"${
+    return `<a href="${hrefAttr}" target="_blank"${
         parseCssInJsToInlineCss(finalStyles.link) !== ""
           ? ` style="${parseCssInJsToInlineCss(finalStyles.link)}"`
           : ""
