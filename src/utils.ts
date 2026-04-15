@@ -11,12 +11,22 @@ function escapeQuotes(value: unknown) {
 }
 
 function escapeHtmlAttr(value: string): string {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
+  return value.replace(/[&"'<>]/g, (char) => {
+    switch (char) {
+      case "&":
+        return "&amp;";
+      case '"':
+        return "&quot;";
+      case "'":
+        return "&#39;";
+      case "<":
+        return "&lt;";
+      case ">":
+        return "&gt;";
+      default:
+        return char;
+    }
+  });
 }
 
 export function camelToKebabCase(str: string): string {
@@ -183,11 +193,10 @@ export const initRenderer = ({
 
     const srcAttr = escapeHtmlAttr(href ?? "");
     const altAttr = escapeHtmlAttr(altText);
+    const imageStyle = parseCssInJsToInlineCss(finalStyles.image);
 
     return `<img src="${srcAttr}" alt="${altAttr}"${
-      parseCssInJsToInlineCss(finalStyles.image) !== ""
-        ? ` style="${parseCssInJsToInlineCss(finalStyles.image)}"`
-        : ""
+      imageStyle !== "" ? ` style="${imageStyle}"` : ""
     }>`;
   }
 
