@@ -10,6 +10,14 @@ function escapeQuotes(value: unknown) {
   return value;
 }
 
+function escapeHtmlAttr(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
 export function camelToKebabCase(str: string): string {
   return str.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
 }
@@ -164,25 +172,17 @@ export const initRenderer = ({
   }
 
   customRenderer.image = ({ href, text, tokens }) => {
-    const escapeAttr = (s: string) =>
-      s
-        .replace(/&/g, "&amp;")
-        .replace(/"/g, "&quot;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;");
-
-    const altText =
-      (tokens
+    const altText = (
+      tokens
         ? customRenderer.parser.parseInline(
             tokens,
             customRenderer.parser.textRenderer
           )
-        : undefined) ??
-      text ??
-      "";
+        : text
+    ) ?? "";
 
-    const srcAttr = escapeAttr(href ?? "");
-    const altAttr = escapeAttr(altText);
+    const srcAttr = escapeHtmlAttr(href ?? "");
+    const altAttr = escapeHtmlAttr(altText);
 
     return `<img src="${srcAttr}" alt="${altAttr}"${
       parseCssInJsToInlineCss(finalStyles.image) !== ""
