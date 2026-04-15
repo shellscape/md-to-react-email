@@ -172,14 +172,15 @@ export const initRenderer = ({
   }
 
   customRenderer.image = ({ href, text, tokens }) => {
-    const altText = (
-      tokens
+    const altText =
+      (tokens
         ? customRenderer.parser.parseInline(
             tokens,
             customRenderer.parser.textRenderer
           )
-        : text
-    ) ?? "";
+        : undefined) ??
+      text ??
+      "";
 
     const srcAttr = escapeHtmlAttr(href ?? "");
     const altAttr = escapeHtmlAttr(altText);
