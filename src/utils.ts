@@ -171,14 +171,15 @@ export const initRenderer = ({
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;");
 
-    const altText = (
-      tokens
+    const altText =
+      (tokens
         ? customRenderer.parser.parseInline(
             tokens,
             customRenderer.parser.textRenderer
           )
-        : text
-    ) ?? "";
+        : undefined) ??
+      text ??
+      "";
 
     const srcAttr = escapeAttr(href ?? "");
     const altAttr = escapeAttr(altText);
