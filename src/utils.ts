@@ -164,6 +164,13 @@ export const initRenderer = ({
   }
 
   customRenderer.image = ({ href, text, tokens }) => {
+    const escapeAttr = (s: string) =>
+      s
+        .replace(/&/g, "&amp;")
+        .replace(/"/g, "&quot;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+
     const altText = (
       tokens
         ? customRenderer.parser.parseInline(
@@ -173,7 +180,10 @@ export const initRenderer = ({
         : text
     ) ?? "";
 
-    return `<img src="${href}" alt="${altText}"${
+    const srcAttr = escapeAttr(href ?? "");
+    const altAttr = escapeAttr(altText);
+
+    return `<img src="${srcAttr}" alt="${altAttr}"${
       parseCssInJsToInlineCss(finalStyles.image) !== ""
         ? ` style="${parseCssInJsToInlineCss(finalStyles.image)}"`
         : ""
