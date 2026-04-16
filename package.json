@@ -27,6 +27,9 @@
     "test": "vitest run --coverage",
     "test:watch": "vitest"
   },
+  "engines": {
+    "node": ">=22"
+  },
   "author": {
     "name": "Paul Ehikhuemen",
     "url": "https://github.com/lordelogos",
