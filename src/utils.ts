@@ -203,12 +203,11 @@ export const initRenderer = ({
   customRenderer.link = ({ href, tokens }) => {
     const text = customRenderer.parser.parseInline(tokens);
     const hrefAttr = escapeHtmlAttr(href ?? "");
+    const linkStyle = parseCssInJsToInlineCss(finalStyles.link);
 
-    return `<a href="${hrefAttr}" target="_blank"${
-        parseCssInJsToInlineCss(finalStyles.link) !== ""
-          ? ` style="${parseCssInJsToInlineCss(finalStyles.link)}"`
-          : ""
-      }>${text}</a>`;
+    return `<a href="${hrefAttr}" target="_blank" rel="noopener noreferrer"${
+      linkStyle !== "" ? ` style="${linkStyle}"` : ""
+    }>${text}</a>`;
   }
 
   customRenderer.list = (token) => {
