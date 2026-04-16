@@ -9,7 +9,10 @@ export class MarkdownParser {
     this.renderer = initRenderer({ customStyles });
   }
 
-  parse(markdown: string) {
-    return marked.parse(markdown, { renderer: this.renderer });
+  parse(markdown: string): string {
+    return marked.parse(markdown, {
+      renderer: this.renderer,
+      async: false,
+    });
   }
 }
