@@ -298,11 +298,15 @@ export const initRenderer = ({
   customRenderer.tablecell = (token) => {
     const content = customRenderer.parser.parseInline(token.tokens);
     const type = token.header ? "th" : "td";
+    const align =
+      token.align === "left" || token.align === "center" || token.align === "right"
+        ? token.align
+        : undefined;
     const styles = parseCssInJsToInlineCss(
       finalStyles[token.header ? "th" : "td"]
     );
-    const tag = token.align
-      ? `<${type} align="${token.align}"${
+    const tag = align
+      ? `<${type} align="${align}"${
           styles !== "" ? ` style="${styles}"` : ""
         }>`
       : `<${type}${styles !== "" ? ` style="${styles}"` : ""}>`;
