@@ -63,7 +63,7 @@ console.log(\`Hello, \$\{name\}!\`);
 <li>Unordered List Item 2</li>
 <li>Unordered List Item 3</li>
 </ul>
-<h2 style=\"font-weight:500;padding-top:20px;font-size:2rem\">Links</h2><p><a href=\"https://www.markdownguide.org\" target=\"_blank\" style=\"color:#007bff;text-decoration:underline;background-color:transparent\">Markdown Guide</a></p>
+<h2 style=\"font-weight:500;padding-top:20px;font-size:2rem\">Links</h2><p><a href=\"https://www.markdownguide.org\" target=\"_blank\" rel=\"noopener noreferrer\" style=\"color:#007bff;text-decoration:underline;background-color:transparent\">Markdown Guide</a></p>
 <h2 style=\"font-weight:500;padding-top:20px;font-size:2rem\">Images</h2><p><img src=\"https://markdown-here.com/img/icon256.png\" alt=\"Markdown Logo\"></p>
 <h2 style=\"font-weight:500;padding-top:20px;font-size:2rem\">Blockquotes</h2><blockquote style=\"background:#f9f9f9;border-left:10px solid #ccc;margin:1.5em 10px;padding:1em 10px\">
 <p>This is a blockquote.</p>
@@ -267,7 +267,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 Here's a link to [OpenAI\'s website](https://openai.com/).`;
 
     const expected = `<p>A link example:
-Here&#39;s a link to <a href="https://openai.com/" target="_blank" style="color:#007bff;text-decoration:underline;background-color:transparent">OpenAI&#39;s website</a>.</p>
+Here&#39;s a link to <a href="https://openai.com/" target="_blank" rel="noopener noreferrer" style="color:#007bff;text-decoration:underline;background-color:transparent">OpenAI&#39;s website</a>.</p>
 `;
 
     const rendered = parseMarkdownToJSX({
